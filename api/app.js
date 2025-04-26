@@ -9,7 +9,7 @@ const prisma = require("./prisma");
 const jwt = require("jsonwebtoken");
 
 const userRouter = require("./routes/user");
-const blogRouter = require("./routes/blog");
+const blogsRouter = require("./routes/blogs");
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -71,7 +71,7 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/user", userRouter);
-app.use("/blog", blogRouter);
+app.use("/blogs", blogsRouter);
 
 app.use((err, req, res, next) => {
   console.error(err);

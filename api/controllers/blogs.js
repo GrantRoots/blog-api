@@ -1,0 +1,66 @@
+const { body, validationResult } = require("express-validator");
+const db = require("../queries/queries");
+
+const validateBlog = [body("title").trim().notEmpty(), body("text").trim()];
+
+const createBlog = [
+  validateBlog,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.error(errors);
+      return res.status(400).render("signUp", {
+        errors: errors.array(),
+      });
+    }
+    try {
+      await db.createBlog(req.body.title, req.body.text);
+      res.status(201).json({ message: "Blog created" });
+    } catch (error) {
+      next(error);
+    }
+  },
+];
+
+async function getAllBlogs(req, res, next) {
+  try {
+    const blogs = await db.getAllBlogs();
+    res.json(blogs);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getBlog(req, res, next) {
+  try {
+    const blog = await db.getBlog(req.params.blogId);
+    res.json(blog);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function updateBlog(req, res, next) {
+  try {
+    await db.updateBlog(req.params.blogid, req.body.title, req.body.text);
+    res.status(201).json({ message: "Blog updated" });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function deleteBlog(req, res, next) {
+  try {
+    await db.deleteBlog(req.params.blogid);
+    res.status(201).json({ message: "Blog deleted" });
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = {
+  createBlog,
+  getAllBlogs,
+  getBlog,
+  updateBlog,
+};
