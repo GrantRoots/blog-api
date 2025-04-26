@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const jwt = require("jsonwebtoken");
 
 const userRouter = require("./routes/user");
 
