@@ -28,14 +28,15 @@ model User {
 
 model Blog {
   id        Int       @id @default(autoincrement())
-  name      String    @db.VarChar(255)
+  title     String    @db.VarChar(255)
+  text      String
   author    User      @relation(fields: [authorId], references: [id])
   authorId  Int
   comments  Comment[]
   createdAt DateTime  @default(now())
   published Boolean   @default(false)
 
-  @@unique([authorId, name])
+  @@unique([authorId, title])
 }
 
 model Comment {

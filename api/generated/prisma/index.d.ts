@@ -3363,7 +3363,8 @@ export namespace Prisma {
 
   export type BlogMinAggregateOutputType = {
     id: number | null
-    name: string | null
+    title: string | null
+    text: string | null
     authorId: number | null
     createdAt: Date | null
     published: boolean | null
@@ -3371,7 +3372,8 @@ export namespace Prisma {
 
   export type BlogMaxAggregateOutputType = {
     id: number | null
-    name: string | null
+    title: string | null
+    text: string | null
     authorId: number | null
     createdAt: Date | null
     published: boolean | null
@@ -3379,7 +3381,8 @@ export namespace Prisma {
 
   export type BlogCountAggregateOutputType = {
     id: number
-    name: number
+    title: number
+    text: number
     authorId: number
     createdAt: number
     published: number
@@ -3399,7 +3402,8 @@ export namespace Prisma {
 
   export type BlogMinAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
+    text?: true
     authorId?: true
     createdAt?: true
     published?: true
@@ -3407,7 +3411,8 @@ export namespace Prisma {
 
   export type BlogMaxAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
+    text?: true
     authorId?: true
     createdAt?: true
     published?: true
@@ -3415,7 +3420,8 @@ export namespace Prisma {
 
   export type BlogCountAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
+    text?: true
     authorId?: true
     createdAt?: true
     published?: true
@@ -3510,7 +3516,8 @@ export namespace Prisma {
 
   export type BlogGroupByOutputType = {
     id: number
-    name: string
+    title: string
+    text: string
     authorId: number
     createdAt: Date
     published: boolean
@@ -3537,7 +3544,8 @@ export namespace Prisma {
 
   export type BlogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    title?: boolean
+    text?: boolean
     authorId?: boolean
     createdAt?: boolean
     published?: boolean
@@ -3548,7 +3556,8 @@ export namespace Prisma {
 
   export type BlogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    title?: boolean
+    text?: boolean
     authorId?: boolean
     createdAt?: boolean
     published?: boolean
@@ -3557,7 +3566,8 @@ export namespace Prisma {
 
   export type BlogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    title?: boolean
+    text?: boolean
     authorId?: boolean
     createdAt?: boolean
     published?: boolean
@@ -3566,13 +3576,14 @@ export namespace Prisma {
 
   export type BlogSelectScalar = {
     id?: boolean
-    name?: boolean
+    title?: boolean
+    text?: boolean
     authorId?: boolean
     createdAt?: boolean
     published?: boolean
   }
 
-  export type BlogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "authorId" | "createdAt" | "published", ExtArgs["result"]["blog"]>
+  export type BlogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "text" | "authorId" | "createdAt" | "published", ExtArgs["result"]["blog"]>
   export type BlogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
     comments?: boolean | Blog$commentsArgs<ExtArgs>
@@ -3593,7 +3604,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      name: string
+      title: string
+      text: string
       authorId: number
       createdAt: Date
       published: boolean
@@ -4023,7 +4035,8 @@ export namespace Prisma {
    */
   interface BlogFieldRefs {
     readonly id: FieldRef<"Blog", 'Int'>
-    readonly name: FieldRef<"Blog", 'String'>
+    readonly title: FieldRef<"Blog", 'String'>
+    readonly text: FieldRef<"Blog", 'String'>
     readonly authorId: FieldRef<"Blog", 'Int'>
     readonly createdAt: FieldRef<"Blog", 'DateTime'>
     readonly published: FieldRef<"Blog", 'Boolean'>
@@ -5611,7 +5624,8 @@ export namespace Prisma {
 
   export const BlogScalarFieldEnum: {
     id: 'id',
-    name: 'name',
+    title: 'title',
+    text: 'text',
     authorId: 'authorId',
     createdAt: 'createdAt',
     published: 'published'
@@ -5835,7 +5849,8 @@ export namespace Prisma {
     OR?: BlogWhereInput[]
     NOT?: BlogWhereInput | BlogWhereInput[]
     id?: IntFilter<"Blog"> | number
-    name?: StringFilter<"Blog"> | string
+    title?: StringFilter<"Blog"> | string
+    text?: StringFilter<"Blog"> | string
     authorId?: IntFilter<"Blog"> | number
     createdAt?: DateTimeFilter<"Blog"> | Date | string
     published?: BoolFilter<"Blog"> | boolean
@@ -5845,7 +5860,8 @@ export namespace Prisma {
 
   export type BlogOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
+    text?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
     published?: SortOrder
@@ -5855,21 +5871,23 @@ export namespace Prisma {
 
   export type BlogWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    authorId_name?: BlogAuthorIdNameCompoundUniqueInput
+    authorId_title?: BlogAuthorIdTitleCompoundUniqueInput
     AND?: BlogWhereInput | BlogWhereInput[]
     OR?: BlogWhereInput[]
     NOT?: BlogWhereInput | BlogWhereInput[]
-    name?: StringFilter<"Blog"> | string
+    title?: StringFilter<"Blog"> | string
+    text?: StringFilter<"Blog"> | string
     authorId?: IntFilter<"Blog"> | number
     createdAt?: DateTimeFilter<"Blog"> | Date | string
     published?: BoolFilter<"Blog"> | boolean
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     comments?: CommentListRelationFilter
-  }, "id" | "authorId_name">
+  }, "id" | "authorId_title">
 
   export type BlogOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
+    text?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
     published?: SortOrder
@@ -5885,7 +5903,8 @@ export namespace Prisma {
     OR?: BlogScalarWhereWithAggregatesInput[]
     NOT?: BlogScalarWhereWithAggregatesInput | BlogScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Blog"> | number
-    name?: StringWithAggregatesFilter<"Blog"> | string
+    title?: StringWithAggregatesFilter<"Blog"> | string
+    text?: StringWithAggregatesFilter<"Blog"> | string
     authorId?: IntWithAggregatesFilter<"Blog"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Blog"> | Date | string
     published?: BoolWithAggregatesFilter<"Blog"> | boolean
@@ -6069,7 +6088,8 @@ export namespace Prisma {
   }
 
   export type BlogCreateInput = {
-    name: string
+    title: string
+    text: string
     createdAt?: Date | string
     published?: boolean
     author: UserCreateNestedOneWithoutBlogsInput
@@ -6078,7 +6098,8 @@ export namespace Prisma {
 
   export type BlogUncheckedCreateInput = {
     id?: number
-    name: string
+    title: string
+    text: string
     authorId: number
     createdAt?: Date | string
     published?: boolean
@@ -6086,7 +6107,8 @@ export namespace Prisma {
   }
 
   export type BlogUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     author?: UserUpdateOneRequiredWithoutBlogsNestedInput
@@ -6095,7 +6117,8 @@ export namespace Prisma {
 
   export type BlogUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
     authorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
@@ -6104,21 +6127,24 @@ export namespace Prisma {
 
   export type BlogCreateManyInput = {
     id?: number
-    name: string
+    title: string
+    text: string
     authorId: number
     createdAt?: Date | string
     published?: boolean
   }
 
   export type BlogUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type BlogUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
     authorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
@@ -6354,14 +6380,15 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type BlogAuthorIdNameCompoundUniqueInput = {
+  export type BlogAuthorIdTitleCompoundUniqueInput = {
     authorId: number
-    name: string
+    title: string
   }
 
   export type BlogCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
+    text?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
     published?: SortOrder
@@ -6374,7 +6401,8 @@ export namespace Prisma {
 
   export type BlogMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
+    text?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
     published?: SortOrder
@@ -6382,7 +6410,8 @@ export namespace Prisma {
 
   export type BlogMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
+    text?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
     published?: SortOrder
@@ -6730,7 +6759,8 @@ export namespace Prisma {
   }
 
   export type BlogCreateWithoutAuthorInput = {
-    name: string
+    title: string
+    text: string
     createdAt?: Date | string
     published?: boolean
     comments?: CommentCreateNestedManyWithoutBlogInput
@@ -6738,7 +6768,8 @@ export namespace Prisma {
 
   export type BlogUncheckedCreateWithoutAuthorInput = {
     id?: number
-    name: string
+    title: string
+    text: string
     createdAt?: Date | string
     published?: boolean
     comments?: CommentUncheckedCreateNestedManyWithoutBlogInput
@@ -6798,7 +6829,8 @@ export namespace Prisma {
     OR?: BlogScalarWhereInput[]
     NOT?: BlogScalarWhereInput | BlogScalarWhereInput[]
     id?: IntFilter<"Blog"> | number
-    name?: StringFilter<"Blog"> | string
+    title?: StringFilter<"Blog"> | string
+    text?: StringFilter<"Blog"> | string
     authorId?: IntFilter<"Blog"> | number
     createdAt?: DateTimeFilter<"Blog"> | Date | string
     published?: BoolFilter<"Blog"> | boolean
@@ -6949,7 +6981,8 @@ export namespace Prisma {
   }
 
   export type BlogCreateWithoutCommentsInput = {
-    name: string
+    title: string
+    text: string
     createdAt?: Date | string
     published?: boolean
     author: UserCreateNestedOneWithoutBlogsInput
@@ -6957,7 +6990,8 @@ export namespace Prisma {
 
   export type BlogUncheckedCreateWithoutCommentsInput = {
     id?: number
-    name: string
+    title: string
+    text: string
     authorId: number
     createdAt?: Date | string
     published?: boolean
@@ -7010,7 +7044,8 @@ export namespace Prisma {
   }
 
   export type BlogUpdateWithoutCommentsInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     author?: UserUpdateOneRequiredWithoutBlogsNestedInput
@@ -7018,7 +7053,8 @@ export namespace Prisma {
 
   export type BlogUncheckedUpdateWithoutCommentsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
     authorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
@@ -7026,7 +7062,8 @@ export namespace Prisma {
 
   export type BlogCreateManyAuthorInput = {
     id?: number
-    name: string
+    title: string
+    text: string
     createdAt?: Date | string
     published?: boolean
   }
@@ -7039,7 +7076,8 @@ export namespace Prisma {
   }
 
   export type BlogUpdateWithoutAuthorInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     comments?: CommentUpdateManyWithoutBlogNestedInput
@@ -7047,7 +7085,8 @@ export namespace Prisma {
 
   export type BlogUncheckedUpdateWithoutAuthorInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     comments?: CommentUncheckedUpdateManyWithoutBlogNestedInput
@@ -7055,7 +7094,8 @@ export namespace Prisma {
 
   export type BlogUncheckedUpdateManyWithoutAuthorInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
   }

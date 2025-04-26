@@ -5,11 +5,11 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("./prisma");
 const jwt = require("jsonwebtoken");
 
 const userRouter = require("./routes/user");
+const blogRouter = require("./routes/blog");
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -71,6 +71,7 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/user", userRouter);
+app.use("/blog", blogRouter);
 
 app.use((err, req, res, next) => {
   console.error(err);
