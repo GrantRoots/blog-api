@@ -40,14 +40,24 @@ async function getBlog(req, res, next) {
   }
 }
 
-async function updateBlog(req, res, next) {
-  try {
-    await db.updateBlog(req.params.blogid, req.body.title, req.body.text);
-    res.status(201).json({ message: "Blog updated" });
-  } catch (error) {
-    next(error);
-  }
-}
+const updateBlog = [
+  validateBlog,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.error(errors);
+      return res.status(400).render("signUp", {
+        errors: errors.array(),
+      });
+    }
+    try {
+      await db.updateBlog(req.params.blogid, req.body.title, req.body.text);
+      res.status(201).json({ message: "Blog updated" });
+    } catch (error) {
+      next(error);
+    }
+  },
+];
 
 async function deleteBlog(req, res, next) {
   try {
