@@ -73,4 +73,5 @@ module.exports = {
   getAllBlogs,
   getBlog,
   updateBlog,
+  deleteBlog,
 };

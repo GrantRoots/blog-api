@@ -49,9 +49,22 @@ async function updateBlog(id, title, text) {
   }
 }
 
+async function deleteBlog(id) {
+  try {
+    await prisma.blog.delete({
+      where: {
+        id: id,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createBlog,
   getAllBlogs,
   getBlog,
   updateBlog,
+  deleteBlog,
 };
