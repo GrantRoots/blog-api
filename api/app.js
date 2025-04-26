@@ -8,7 +8,7 @@ const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const indexRouter = require("./routes/index");
+const userRouter = require("./routes/user");
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -69,7 +69,7 @@ app.use(
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", indexRouter);
+app.use("/user", userRouter);
 
 app.use((err, req, res, next) => {
   console.error(err);
