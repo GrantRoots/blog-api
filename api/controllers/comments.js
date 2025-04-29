@@ -1,5 +1,5 @@
 const { body, validationResult } = require("express-validator");
-const db = require("../queries/queries");
+const db = require("../queries/comments");
 
 const validateComment = [body("text").trim().notEmpty().escape()];
 

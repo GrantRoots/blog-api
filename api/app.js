@@ -6,6 +6,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const prisma = require("./prisma");
+const { PrismaClient } = require("@prisma/client");
 const jwt = require("jsonwebtoken");
 
 const userRouter = require("./routes/user");

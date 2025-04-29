@@ -1,6 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const db = require("../queries/queries");
+const db = require("../queries/user");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
@@ -56,6 +56,7 @@ function logIn(req, res, next) {
     jwt.sign(
       { sub: user.id },
       process.env.JWT_SECRET,
+      // 1 week
       { expiresIn: "168h" },
       (err, token) => {
         if (err) {
