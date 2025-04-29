@@ -11,6 +11,9 @@ const jwt = require("jsonwebtoken");
 const userRouter = require("./routes/user");
 const blogsRouter = require("./routes/blogs");
 
+const app = express();
+const PORT = process.env.PORT || 3000;
+
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
@@ -32,6 +35,27 @@ passport.use(
     }
   })
 );
+
+const JwtStrategy = require("passport-jwt").Strategy,
+  ExtractJwt = require("passport-jwt").ExtractJwt;
+const opts = {};
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = "secret";
+passport.use(
+  new JwtStrategy(opts, function (jwt_payload, done) {
+    User.findOne({ id: jwt_payload.sub }, function (err, user) {
+      if (err) {
+        return done(err, false);
+      }
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    });
+  })
+);
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -47,10 +71,6 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
-
-const app = express();
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
 
 app.use(
   session({
@@ -68,6 +88,7 @@ app.use(
   })
 );
 app.use(passport.session());
+//need true?
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/user", userRouter);
@@ -81,5 +102,4 @@ app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
 
-const PORT = process.env.PORT || 3000;
 app.listen(PORT);

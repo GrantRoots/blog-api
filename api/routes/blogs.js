@@ -1,12 +1,25 @@
 const blogsRouter = require("express").Router();
 const blogsController = require("../controllers/blogs");
 const commentsRouter = require("./comments");
+const passport = require("passport");
 
-blogsRouter.post("/", blogsController.createBlog);
+blogsRouter.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  blogsController.createBlog
+);
 blogsRouter.get("/", blogsController.getAllBlogs);
 blogsRouter.get("/:blogid", blogsController.getBlog);
-blogsRouter.put("/:blogid", blogsController.updateBlog);
-blogsRouter.delete("/:blogid", blogsController.deleteBlog);
+blogsRouter.put(
+  "/:blogid",
+  passport.authenticate("jwt", { session: false }),
+  blogsController.updateBlog
+);
+blogsRouter.delete(
+  "/:blogid",
+  passport.authenticate("jwt", { session: false }),
+  blogsController.deleteBlog
+);
 
 blogsRouter.use("/:blogid/comments", commentsRouter);
 

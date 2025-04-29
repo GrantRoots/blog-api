@@ -2,6 +2,7 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const db = require("../queries/queries");
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
 const validateUser = [
   body("username").trim().notEmpty().escape(),
@@ -44,10 +45,25 @@ const signUp = [
   },
 ];
 
-function logIn(req, res) {
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/",
+function logIn(req, res, next) {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    jwt.sign(
+      { sub: user.id },
+      process.env.JWT_SECRET,
+      { expiresIn: "168h" },
+      (err, token) => {
+        if (err) {
+          return next(err);
+        }
+        res.json({ token });
+      }
+    );
   })(req, res, next);
 }
 
