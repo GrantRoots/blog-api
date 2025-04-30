@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./App.css";
 
 function App() {
-  const [blogs, setBlogs] = useState(null);
+  const [blogs, setBlogs] = useState([]);
 
-  // Fetch blogs once the component mounts
   useEffect(() => {
     async function fetchBlogs() {
       try {
@@ -25,10 +25,21 @@ function App() {
 
   return (
     <>
-      <button>Sign Up</button>
-      <button>Log In</button>
+      <Link to={"signup"}>
+        <button>Sign Up</button>
+      </Link>
+      <Link to={"login"}>
+        <button>Log In</button>
+      </Link>
       <button>Create Blog</button>
-      <button>Foreach blog have update, delete, and publish button</button>
+      {/* Foreach blog have update, delete, and publish button */}
+      {blogs.length < 1 ? (
+        <div>No blogs yet create the first!</div>
+      ) : (
+        blogs.map((blog) => {
+          <div>{blog.title}</div>;
+        })
+      )}
     </>
   );
 }

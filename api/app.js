@@ -99,8 +99,8 @@ app.use(
   })
 );
 app.use(passport.session());
-//need true?
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use("/user", userRouter);
 app.use("/blogs", blogsRouter);

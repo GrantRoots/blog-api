@@ -9,9 +9,9 @@ const createComment = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.error(errors);
-      return res.status(400).render("signUp", {
-        errors: errors.array(),
-      });
+      return res
+        .status(400)
+        .json({ error: "Create failed", details: errors.array() });
     }
     try {
       await db.createComment(req.params.blogid, req.body.text);
@@ -46,9 +46,9 @@ const updateComment = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.error(errors);
-      return res.status(400).render("signUp", {
-        errors: errors.array(),
-      });
+      return res
+        .status(400)
+        .json({ error: "Update failed", details: errors.array() });
     }
     try {
       await db.updateComment(req.params.commentid, req.body.text);

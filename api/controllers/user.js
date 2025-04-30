@@ -25,10 +25,11 @@ const signUp = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log("validation error controllers/user/28");
       console.error(errors);
-      return res.status(400).render("signUp", {
-        errors: errors.array(),
-      });
+      return res
+        .status(400)
+        .json({ error: "Sign Up failed", details: errors.array() });
     }
     try {
       await db.signUp(
@@ -38,7 +39,7 @@ const signUp = [
         req.body.lastName,
         req.body.author
       );
-      res.status(201).json({ message: "User signed up successfully" });
+      res.status(201).end();
     } catch (error) {
       next(error);
     }

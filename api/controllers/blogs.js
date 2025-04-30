@@ -9,9 +9,9 @@ const createBlog = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.error(errors);
-      return res.status(400).render("signUp", {
-        errors: errors.array(),
-      });
+      return res
+        .status(400)
+        .json({ error: "Creation failed", details: errors.array() });
     }
     try {
       await db.createBlog(req.body.title, req.body.text);
@@ -46,9 +46,9 @@ const updateBlog = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.error(errors);
-      return res.status(400).render("signUp", {
-        errors: errors.array(),
-      });
+      return res
+        .status(400)
+        .json({ error: "Update failed", details: errors.array() });
     }
     try {
       await db.updateBlog(req.params.blogid, req.body.title, req.body.text);
