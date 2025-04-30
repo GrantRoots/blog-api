@@ -1,22 +1,23 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function CreateBlog() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  async function handleLogin(e) {
+  async function handleCreateBlog(e) {
     e.preventDefault();
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
+    const token = localStorage.getItem("token");
     try {
       const response = await fetch("http://localhost:3000/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });
@@ -35,19 +36,14 @@ function Login() {
 
   return (
     <>
-      <form onSubmit={handleLogin}>
-        <label htmlFor="username">Username: </label>
-        <input type="text" name="username" />
-        <label htmlFor="password">Password: </label>
-        <input type="text" name="password" />
-        <button type="submit">Submit</button>
+      <form onSubmit={handleCreateBlog}>
+        <label htmlFor="title">Title:</label>
+        <input type="text" name="title" />
+        <label htmlFor="text">Text:</label>
+        <input type="text" name="text" />
       </form>
-      {error === null ? "" : <div>{error}</div>}
-      <Link to={"/"}>
-        <button>Home</button>
-      </Link>
     </>
   );
 }
 
-export { Login };
+export { CreateBlog };

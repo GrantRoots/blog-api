@@ -25,7 +25,6 @@ const signUp = [
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log("validation error controllers/user/28");
       console.error(errors);
       return res
         .status(400)

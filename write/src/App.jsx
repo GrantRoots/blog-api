@@ -33,6 +33,7 @@ function App() {
       </Link>
       <button>Create Blog</button>
       {/* Foreach blog have update, delete, and publish button */}
+      {}
       {blogs.length < 1 ? (
         <div>No blogs yet create the first!</div>
       ) : (

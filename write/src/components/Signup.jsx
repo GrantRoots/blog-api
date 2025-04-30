@@ -9,7 +9,6 @@ function Signup() {
   async function onSubmit(e) {
     e.preventDefault();
 
-    console.log(e);
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
@@ -23,7 +22,6 @@ function Signup() {
       });
 
       if (response.ok) {
-        console.log("redirecting...");
         navigate("/");
       } else {
         setError("Sign Up failed please try again");
