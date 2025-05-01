@@ -62,7 +62,7 @@ function logIn(req, res, next) {
         if (err) {
           return next(err);
         }
-        res.json({ token });
+        res.json({ token, userId: user.id });
       }
     );
   })(req, res, next);

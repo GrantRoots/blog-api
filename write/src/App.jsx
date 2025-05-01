@@ -4,6 +4,7 @@ import "./App.css";
 
 function App() {
   const [blogs, setBlogs] = useState([]);
+  const userId = parseInt(localStorage.getItem("userId"));
 
   useEffect(() => {
     async function fetchBlogs() {
@@ -13,7 +14,6 @@ function App() {
         });
         if (!response.ok) return;
         const blogsData = await response.json();
-        console.log(blogsData, "16");
         setBlogs(blogsData);
       } catch (error) {
         console.error(error);
@@ -37,16 +37,18 @@ function App() {
       {blogs.length < 1 ? (
         <div>No blogs yet create the first!</div>
       ) : (
-        blogs.map((blog) => (
-          <h4 key={blog.id}>
-            <div>{blog.title}</div>
-            <div>{blog.text}</div>
-            <div>Published: {blog.published ? "True" : "False"}</div>
-            <button>Update</button>
-            <button>Delete</button>
-            <button>Publish</button>
-          </h4>
-        ))
+        blogs
+          .filter((blog) => blog.authorId === userId)
+          .map((blog) => (
+            <h4 key={blog.id}>
+              <div>{blog.title}</div>
+              <div>{blog.text}</div>
+              <div>Published: {blog.published ? "True" : "False"}</div>
+              <button>Update</button>
+              <button>Delete</button>
+              <button>Publish</button>
+            </h4>
+          ))
       )}
     </>
   );

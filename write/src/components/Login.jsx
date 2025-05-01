@@ -24,6 +24,7 @@ function Login() {
 
       if (response.ok) {
         localStorage.setItem("token", resData.token);
+        localStorage.setItem("userId", resData.userId);
         navigate("/");
       } else {
         setError("Login failed please try again");
