@@ -13,7 +13,7 @@ function App() {
         });
         if (!response.ok) return;
         const blogsData = await response.json();
-        console.log(blogsData);
+        console.log(blogsData, "16");
         setBlogs(blogsData);
       } catch (error) {
         console.error(error);
@@ -31,15 +31,22 @@ function App() {
       <Link to={"login"}>
         <button>Log In</button>
       </Link>
-      <button>Create Blog</button>
-      {/* Foreach blog have update, delete, and publish button */}
-      {}
+      <Link to={"blog"}>
+        <button>Create Blog</button>
+      </Link>
       {blogs.length < 1 ? (
         <div>No blogs yet create the first!</div>
       ) : (
-        blogs.map((blog) => {
-          <div>{blog.title}</div>;
-        })
+        blogs.map((blog) => (
+          <h4 key={blog.id}>
+            <div>{blog.title}</div>
+            <div>{blog.text}</div>
+            <div>Published: {blog.published ? "True" : "False"}</div>
+            <button>Update</button>
+            <button>Delete</button>
+            <button>Publish</button>
+          </h4>
+        ))
       )}
     </>
   );

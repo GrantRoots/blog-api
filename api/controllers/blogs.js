@@ -14,7 +14,7 @@ const createBlog = [
         .json({ error: "Creation failed", details: errors.array() });
     }
     try {
-      await db.createBlog(req.body.title, req.body.text);
+      await db.createBlog(req.body.title, req.body.text, req.user.id);
       res.status(201).json({ message: "Blog created" });
     } catch (error) {
       next(error);

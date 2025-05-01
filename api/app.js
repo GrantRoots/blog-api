@@ -51,37 +51,37 @@ const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = "secret";
+opts.secretOrKey = process.env.JWT_SECRET;
 passport.use(
-  new JwtStrategy(opts, function (jwt_payload, done) {
-    User.findOne({ id: jwt_payload.sub }, function (err, user) {
-      if (err) {
-        return done(err, false);
-      }
-      if (user) {
-        return done(null, user);
-      } else {
-        return done(null, false);
-      }
-    });
+  new JwtStrategy(opts, async (jwt_payload, done) => {
+    try {
+      const user = await prisma.user.findUnique({
+        where: { id: jwt_payload.sub },
+      });
+
+      if (user) return done(null, user);
+      return done(null, false);
+    } catch (err) {
+      return done(err, false);
+    }
   })
 );
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: {
-        id: id,
-      },
-    });
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
+// passport.serializeUser((user, done) => {
+//   done(null, user.id);
+// });
+// passport.deserializeUser(async (id, done) => {
+//   try {
+//     const user = await prisma.user.findUnique({
+//       where: {
+//         id: id,
+//       },
+//     });
+//     done(null, user);
+//   } catch (err) {
+//     done(err);
+//   }
+// });
 
 app.use(
   session({

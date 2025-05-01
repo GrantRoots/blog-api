@@ -1,11 +1,12 @@
 const prisma = require("../prisma");
 
-async function createBlog(title, text) {
+async function createBlog(title, text, id) {
   try {
     await prisma.blog.create({
       data: {
         title: title,
         text: text,
+        authorId: id,
       },
     });
   } catch (error) {
@@ -15,13 +16,7 @@ async function createBlog(title, text) {
 
 async function getAllBlogs() {
   try {
-    return await prisma.blog.findMany({
-      select: {
-        id: true,
-        title: true,
-        text: true,
-      },
-    });
+    return await prisma.blog.findMany();
   } catch (error) {
     throw error;
   }

@@ -13,7 +13,7 @@ function CreateBlog() {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:3000/user/login", {
+      const response = await fetch("http://localhost:3000/blogs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,13 +21,11 @@ function CreateBlog() {
         },
         body: JSON.stringify(data),
       });
-      const resData = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", resData.token);
         navigate("/");
       } else {
-        setError("Login failed please try again");
+        setError("Creation failed please try again");
       }
     } catch (err) {
       console.error("Network or server error:", err);
@@ -41,6 +39,7 @@ function CreateBlog() {
         <input type="text" name="title" />
         <label htmlFor="text">Text:</label>
         <input type="text" name="text" />
+        <button type="submit">Submit</button>
       </form>
     </>
   );
