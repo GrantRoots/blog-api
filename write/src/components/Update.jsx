@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-function CreateBlog() {
+function Update() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const blogId = searchParams.get("blogId");
 
-  async function handleCreateBlog(e) {
+  async function handleUpdate(e) {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -14,8 +17,8 @@ function CreateBlog() {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:3000/blogs", {
-        method: "POST",
+      const response = await fetch(`http://localhost:3000/blogs/${blogId}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -26,16 +29,15 @@ function CreateBlog() {
       if (response.ok) {
         navigate("/");
       } else {
-        setError("Creation failed please try again");
+        setError("Update failed please try again");
       }
     } catch (err) {
       console.error("Network or server error:", err);
     }
   }
-
   return (
     <>
-      <form onSubmit={handleCreateBlog}>
+      <form onSubmit={handleUpdate}>
         <label htmlFor="title">Title:</label>
         <input type="text" name="title" />
         <label htmlFor="text">Text:</label>
@@ -47,4 +49,4 @@ function CreateBlog() {
   );
 }
 
-export { CreateBlog };
+export { Update };

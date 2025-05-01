@@ -2,6 +2,7 @@ import App from "./App";
 import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
 import { CreateBlog } from "./components/CreateBlog";
+import { Update } from "./components/Update";
 
 const routes = [
   {
@@ -19,6 +20,10 @@ const routes = [
   {
     path: "blog",
     element: <CreateBlog />,
+  },
+  {
+    path: "update",
+    element: <Update />,
   },
 ];
 

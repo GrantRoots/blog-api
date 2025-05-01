@@ -38,7 +38,7 @@ async function updateBlog(id, title, text) {
   try {
     await prisma.blog.update({
       where: {
-        id: id,
+        id: parseInt(id),
       },
       data: {
         title: title,

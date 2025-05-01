@@ -41,7 +41,7 @@ async function updateComment(id, text) {
   try {
     await prisma.comment.update({
       where: {
-        id: id,
+        id: parseInt(id),
       },
       data: {
         text: text,
