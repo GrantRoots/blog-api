@@ -26,7 +26,7 @@ async function getBlog(id) {
   try {
     return await prisma.blog.findUnique({
       where: {
-        id: id,
+        id: parseInt(id),
       },
     });
   } catch (error) {
@@ -54,13 +54,15 @@ async function deleteBlog(id) {
   try {
     await prisma.blog.delete({
       where: {
-        id: id,
+        id: parseInt(id),
       },
     });
   } catch (error) {
     throw error;
   }
 }
+
+//publish unpublish
 
 module.exports = {
   createBlog,

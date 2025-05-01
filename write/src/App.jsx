@@ -6,22 +6,41 @@ function App() {
   const [blogs, setBlogs] = useState([]);
   const userId = parseInt(localStorage.getItem("userId"));
 
-  useEffect(() => {
-    async function fetchBlogs() {
-      try {
-        const response = await fetch("http://localhost:3000/blogs", {
-          mode: "cors",
-        });
-        if (!response.ok) return;
-        const blogsData = await response.json();
-        setBlogs(blogsData);
-      } catch (error) {
-        console.error(error);
-      }
+  async function fetchBlogs() {
+    try {
+      const response = await fetch("http://localhost:3000/blogs", {
+        mode: "cors",
+      });
+      if (!response.ok) return;
+      const blogsData = await response.json();
+      setBlogs(blogsData);
+    } catch (error) {
+      console.error(error);
     }
+  }
 
+  useEffect(() => {
     fetchBlogs();
   }, []);
+
+  async function deleteBlog(blogId) {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(`http://localhost:3000/blogs/${blogId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        await fetchBlogs();
+      }
+    } catch (err) {
+      console.error("Network or server error:", err);
+    }
+  }
 
   return (
     <>
@@ -44,11 +63,10 @@ function App() {
               <div>{blog.title}</div>
               <div>{blog.text}</div>
               <div>Published: {blog.published ? "True" : "False"}</div>
-              {/* Link to update with blogId as param */}
               <Link to={`/update?blogId=${blog.id}`}>
                 <button>Update</button>
               </Link>
-              <button>Delete</button>
+              <button onClick={() => deleteBlog(blog.id)}>Delete</button>
               <button>Publish</button>
             </h4>
           ))

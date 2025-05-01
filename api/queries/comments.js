@@ -5,7 +5,7 @@ async function createComment(blogId, text) {
     await prisma.comment.create({
       data: {
         text: text,
-        blogId: blogId,
+        blogId: parseInt(blogId),
       },
     });
   } catch (error) {
@@ -17,7 +17,7 @@ async function getAllComments(blogId) {
   try {
     return await prisma.comment.findMany({
       where: {
-        blogId: blogId,
+        blogId: parseInt(blogId),
       },
     });
   } catch (error) {
@@ -29,7 +29,7 @@ async function getComment(id) {
   try {
     return await prisma.comment.findUnique({
       where: {
-        id: id,
+        id: parseInt(id),
       },
     });
   } catch (error) {
@@ -56,7 +56,7 @@ async function deleteComment(id) {
   try {
     await prisma.comment.delete({
       where: {
-        id: id,
+        id: parseInt(id),
       },
     });
   } catch (error) {
