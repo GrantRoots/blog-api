@@ -1,5 +1,6 @@
 const blogsRouter = require("express").Router();
 const blogsController = require("../controllers/blogs");
+const { blog } = require("../prisma");
 const commentsRouter = require("./comments");
 const passport = require("passport");
 
@@ -19,6 +20,11 @@ blogsRouter.delete(
   "/:blogid",
   passport.authenticate("jwt", { session: false }),
   blogsController.deleteBlog
+);
+blogsRouter.put(
+  "/:blogid/publish",
+  passport.authenticate("jwt", { session: false }),
+  blogsController.handlePublish
 );
 
 blogsRouter.use("/:blogid/comments", commentsRouter);

@@ -62,7 +62,35 @@ async function deleteBlog(id) {
   }
 }
 
-//publish unpublish
+async function publishBlog(id) {
+  try {
+    await prisma.blog.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: {
+        published: true,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function unpublishBlog(id) {
+  try {
+    await prisma.blog.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: {
+        published: false,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = {
   createBlog,
@@ -70,4 +98,6 @@ module.exports = {
   getBlog,
   updateBlog,
   deleteBlog,
+  publishBlog,
+  unpublishBlog,
 };

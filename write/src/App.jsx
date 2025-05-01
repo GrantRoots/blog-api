@@ -42,6 +42,27 @@ function App() {
     }
   }
 
+  async function handlePublish(blogId, published) {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(
+        `http://localhost:3000/blogs/${blogId}/publish?published=${published}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        await fetchBlogs();
+      }
+    } catch (err) {
+      console.error("Network or server error:", err);
+    }
+  }
+
   return (
     <>
       <Link to={"signup"}>
@@ -67,7 +88,9 @@ function App() {
                 <button>Update</button>
               </Link>
               <button onClick={() => deleteBlog(blog.id)}>Delete</button>
-              <button>Publish</button>
+              <button onClick={() => handlePublish(blog.id, blog.published)}>
+                Publish
+              </button>
             </h4>
           ))
       )}

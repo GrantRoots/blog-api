@@ -68,10 +68,29 @@ async function deleteBlog(req, res, next) {
   }
 }
 
+async function handlePublish(req, res, next) {
+  if (req.query.published === "false") {
+    try {
+      await db.publishBlog(req.params.blogid);
+      res.status(201).json({ message: "Blog published" });
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    try {
+      await db.unpublishBlog(req.params.blogid);
+      res.status(201).json({ message: "Blog unpublished" });
+    } catch (error) {
+      next(error);
+    }
+  }
+}
+
 module.exports = {
   createBlog,
   getAllBlogs,
   getBlog,
   updateBlog,
   deleteBlog,
+  handlePublish,
 };
