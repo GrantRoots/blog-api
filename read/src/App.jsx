@@ -35,22 +35,24 @@ function App() {
       {blogs.length < 1 ? (
         <div>No blogs yet create the first!</div>
       ) : (
-        blogs.map((blog) => (
-          <h4 key={blog.id}>
-            <div>Blog #{blog.id}</div>
-            <div>Title: {blog.title}</div>
-            <div>Text: {blog.text}</div>
-            <div>
-              Comments:
-              {blog.comments.map((comment) => (
-                <div key={comment.id}>{comment.text}</div>
-              ))}
-            </div>
-            <Link to={`/create?blogid=${blog.id}`}>
-              <button>Add a comment</button>
-            </Link>
-          </h4>
-        ))
+        blogs
+          .filter((blog) => blog.published === true)
+          .map((blog) => (
+            <h4 key={blog.id}>
+              <div>Blog #{blog.id}</div>
+              <div>Title: {blog.title}</div>
+              <div>Text: {blog.text}</div>
+              <div>
+                Comments:
+                {blog.comments.map((comment) => (
+                  <div key={comment.id}>{comment.text}</div>
+                ))}
+              </div>
+              <Link to={`/create?blogid=${blog.id}`}>
+                <button>Add a comment</button>
+              </Link>
+            </h4>
+          ))
       )}
     </>
   );
