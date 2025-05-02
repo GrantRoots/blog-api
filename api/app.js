@@ -1,4 +1,3 @@
-const path = require("node:path");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
@@ -8,7 +7,6 @@ const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 //will have to change the output in prisma schema and this line to import from the /prisma/generated/client file
 const { PrismaClient } = require("@prisma/client");
 const prisma = require("./prisma");
-const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
 const userRouter = require("./routes/user");
@@ -17,14 +15,7 @@ const blogsRouter = require("./routes/blogs");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-//CHANGE FOR DEV OR PROD
-app.use(
-  cors()
-  //   {
-  //   origin: "http://localhost:5173",
-  //   credentials: true,
-  // }
-);
+app.use(cors());
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
