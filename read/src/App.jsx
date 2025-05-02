@@ -14,7 +14,6 @@ function App() {
       if (!response.ok) return;
       const blogsData = await response.json();
       setBlogs(blogsData);
-      console.log(blogsData);
     } catch (error) {
       console.error(error);
     }
@@ -45,7 +44,13 @@ function App() {
               <div>
                 Comments:
                 {blog.comments.map((comment) => (
-                  <div key={comment.id}>{comment.text}</div>
+                  <div key={comment.id}>
+                    <div>{comment.text}</div>
+                    <Link to={`/update?commentid=${comment.id}`}>
+                      <button>Update</button>
+                    </Link>
+                    <button>Delete</button>
+                  </div>
                 ))}
               </div>
               <Link to={`/create?blogid=${blog.id}`}>
