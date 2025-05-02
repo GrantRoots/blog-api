@@ -81,8 +81,8 @@ function App() {
           .filter((blog) => blog.authorId === userId)
           .map((blog) => (
             <h4 key={blog.id}>
-              <div>{blog.title}</div>
-              <div>{blog.text}</div>
+              <div>Title: {blog.title}</div>
+              <div>Text: {blog.text}</div>
               <div>Published: {blog.published ? "True" : "False"}</div>
               <Link to={`/update?blogId=${blog.id}`}>
                 <button>Update</button>

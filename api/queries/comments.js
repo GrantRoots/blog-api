@@ -1,11 +1,12 @@
 const prisma = require("../prisma");
 
-async function createComment(blogId, text) {
+async function createComment(blogId, text, userId) {
   try {
     await prisma.comment.create({
       data: {
         text: text,
         blogId: parseInt(blogId),
+        authorId: parseInt(userId),
       },
     });
   } catch (error) {

@@ -14,7 +14,11 @@ const createComment = [
         .json({ error: "Create failed", details: errors.array() });
     }
     try {
-      await db.createComment(req.params.blogid, req.body.text);
+      await db.createComment(
+        req.params.blogid,
+        req.body.text,
+        req.query.userid
+      );
       res.status(201).json({ message: "Comment created" });
     } catch (error) {
       next(error);

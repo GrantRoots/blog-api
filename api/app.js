@@ -19,10 +19,11 @@ const PORT = process.env.PORT || 3000;
 
 //CHANGE FOR DEV OR PROD
 app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
+  cors()
+  //   {
+  //   origin: "http://localhost:5173",
+  //   credentials: true,
+  // }
 );
 
 passport.use(

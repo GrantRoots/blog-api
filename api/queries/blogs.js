@@ -16,7 +16,11 @@ async function createBlog(title, text, id) {
 
 async function getAllBlogs() {
   try {
-    return await prisma.blog.findMany();
+    return await prisma.blog.findMany({
+      include: {
+        comments: true,
+      },
+    });
   } catch (error) {
     throw error;
   }

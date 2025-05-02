@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [blogs, setBlogs] = useState([]);
+  const userId = parseInt(localStorage.getItem("userId"));
+
+  async function fetchBlogs() {
+    try {
+      const response = await fetch("http://localhost:3000/blogs", {
+        mode: "cors",
+      });
+      if (!response.ok) return;
+      const blogsData = await response.json();
+      setBlogs(blogsData);
+      console.log(blogsData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Link to={"signup"}>
+        <button>Sign Up</button>
+      </Link>
+      <Link to={"login"}>
+        <button>Log In</button>
+      </Link>
+      {blogs.length < 1 ? (
+        <div>No blogs yet create the first!</div>
+      ) : (
+        blogs.map((blog) => (
+          <h4 key={blog.id}>
+            <div>Blog #{blog.id}</div>
+            <div>Title: {blog.title}</div>
+            <div>Text: {blog.text}</div>
+            <div>
+              Comments:
+              {blog.comments.map((comment) => (
+                <div key={comment.id}>{comment.text}</div>
+              ))}
+            </div>
+            <Link to={`/create?blogid=${blog.id}`}>
+              <button>Add a comment</button>
+            </Link>
+          </h4>
+        ))
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
