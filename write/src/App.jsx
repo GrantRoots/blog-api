@@ -8,9 +8,12 @@ function App() {
 
   async function fetchBlogs() {
     try {
-      const response = await fetch("http://localhost:3000/blogs", {
-        mode: "cors",
-      });
+      const response = await fetch(
+        "https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs",
+        {
+          mode: "cors",
+        }
+      );
       if (!response.ok) return;
       const blogsData = await response.json();
       setBlogs(blogsData);
@@ -27,13 +30,16 @@ function App() {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch(`http://localhost:3000/blogs/${blogId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs/${blogId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         await fetchBlogs();
       }
@@ -46,7 +52,7 @@ function App() {
     const token = localStorage.getItem("token");
     try {
       const response = await fetch(
-        `http://localhost:3000/blogs/${blogId}/publish?published=${published}`,
+        `https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs/${blogId}/publish?published=${published}`,
         {
           method: "PUT",
           headers: {

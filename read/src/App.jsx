@@ -8,9 +8,12 @@ function App() {
 
   async function fetchBlogs() {
     try {
-      const response = await fetch("http://localhost:3000/blogs", {
-        mode: "cors",
-      });
+      const response = await fetch(
+        "https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs",
+        {
+          mode: "cors",
+        }
+      );
       if (!response.ok) return;
       const blogsData = await response.json();
       setBlogs(blogsData);
@@ -25,10 +28,9 @@ function App() {
 
   async function handleDelete(commentId) {
     const token = localStorage.getItem("token");
-
     try {
       const response = await fetch(
-        `http://localhost:3000/blogs/0/comments/${commentId}`,
+        `https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs/0/comments/${commentId}`,
         {
           method: "DELETE",
           headers: {

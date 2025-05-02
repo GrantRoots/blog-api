@@ -19,7 +19,7 @@ function CreateComment() {
     const userId = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `http://localhost:3000/blogs/${blogId}/comments?userid=${userId}`,
+        `https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs/${blogId}/comments?userid=${userId}`,
         {
           method: "POST",
           headers: {

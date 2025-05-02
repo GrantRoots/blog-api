@@ -18,7 +18,7 @@ function Update() {
     const token = localStorage.getItem("token");
     try {
       const response = await fetch(
-        `http://localhost:3000/blogs/0/comments/${commentId}`,
+        `https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs/0/comments/${commentId}`,
         {
           method: "PUT",
           headers: {

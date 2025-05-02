@@ -14,14 +14,17 @@ function CreateBlog() {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:3000/blogs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         navigate("/");

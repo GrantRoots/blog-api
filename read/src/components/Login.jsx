@@ -13,13 +13,16 @@ function Login() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("http://localhost:3000/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://square-lianne-grantroots-428bd7ba.koyeb.app/user/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       const resData = await response.json();
 
       if (response.ok) {
