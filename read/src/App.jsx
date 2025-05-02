@@ -23,6 +23,28 @@ function App() {
     fetchBlogs();
   }, []);
 
+  async function handleDelete(commentId) {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/blogs/0/comments/${commentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        await fetchBlogs();
+      }
+    } catch (err) {
+      console.error("Network or server error:", err);
+    }
+  }
+
   return (
     <>
       <Link to={"signup"}>
@@ -49,7 +71,9 @@ function App() {
                     <Link to={`/update?commentid=${comment.id}`}>
                       <button>Update</button>
                     </Link>
-                    <button>Delete</button>
+                    <button onClick={() => handleDelete(comment.id)}>
+                      Delete
+                    </button>
                   </div>
                 ))}
               </div>
