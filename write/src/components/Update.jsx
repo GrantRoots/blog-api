@@ -8,6 +8,7 @@ function Update() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const blogId = searchParams.get("blogId");
+  const API_URL = import.meta.env.VITE_API_URL;
 
   async function handleUpdate(e) {
     e.preventDefault();
@@ -17,17 +18,14 @@ function Update() {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(
-        `https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs/${blogId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${API_URL}/blogs/${blogId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
 
       if (response.ok) {
         navigate("/");
@@ -39,7 +37,7 @@ function Update() {
     }
   }
   return (
-    <>
+    <main>
       <form onSubmit={handleUpdate}>
         <label htmlFor="title">Title:</label>
         <input type="text" name="title" />
@@ -48,7 +46,7 @@ function Update() {
         <button type="submit">Submit</button>
       </form>
       <Link to={"/"}>Home</Link>
-    </>
+    </main>
   );
 }
 

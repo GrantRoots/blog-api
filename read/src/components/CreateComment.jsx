@@ -8,6 +8,7 @@ function CreateComment() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const blogId = searchParams.get("blogid");
+  const API_URL = import.meta.env.VITE_API_URL;
 
   async function handleCreate(e) {
     e.preventDefault();
@@ -19,7 +20,7 @@ function CreateComment() {
     const userId = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs/${blogId}/comments?userid=${userId}`,
+        `${API_URL}/blogs/${blogId}/comments?userid=${userId}`,
         {
           method: "POST",
           headers: {
@@ -41,7 +42,8 @@ function CreateComment() {
   }
 
   return (
-    <>
+    <main>
+      <h1>Comment</h1>
       <form onSubmit={handleCreate}>
         <label htmlFor="text">Text:</label>
         <input type="text" name="text" />
@@ -49,7 +51,7 @@ function CreateComment() {
       </form>
       {error === null ? "" : <div>{error}</div>}
       <Link to={"/"}>Home</Link>
-    </>
+    </main>
   );
 }
 

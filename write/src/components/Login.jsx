@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -13,16 +14,13 @@ function Login() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch(
-        "https://square-lianne-grantroots-428bd7ba.koyeb.app/user/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${API_URL}/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       const resData = await response.json();
 
       if (response.ok) {
@@ -38,7 +36,7 @@ function Login() {
   }
 
   return (
-    <>
+    <main>
       <form onSubmit={handleLogin}>
         <label htmlFor="username">Username: </label>
         <input type="text" name="username" />
@@ -47,10 +45,8 @@ function Login() {
         <button type="submit">Submit</button>
       </form>
       {error === null ? "" : <div>{error}</div>}
-      <Link to={"/"}>
-        <button>Home</button>
-      </Link>
-    </>
+      <Link to={"/"}>Home</Link>
+    </main>
   );
 }
 

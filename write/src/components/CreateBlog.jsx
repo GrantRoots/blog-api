@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 function CreateBlog() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   async function handleCreateBlog(e) {
     e.preventDefault();
@@ -14,17 +15,14 @@ function CreateBlog() {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(
-        "https://square-lianne-grantroots-428bd7ba.koyeb.app/blogs",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${API_URL}/blogs`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
 
       if (response.ok) {
         navigate("/");
@@ -37,16 +35,18 @@ function CreateBlog() {
   }
 
   return (
-    <>
+    <main>
       <form onSubmit={handleCreateBlog}>
         <label htmlFor="title">Title:</label>
         <input type="text" name="title" />
+
         <label htmlFor="text">Text:</label>
         <input type="text" name="text" />
+
         <button type="submit">Submit</button>
       </form>
       <Link to={"/"}>Home</Link>
-    </>
+    </main>
   );
 }
 

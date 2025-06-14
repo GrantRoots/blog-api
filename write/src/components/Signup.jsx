@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Signup() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -13,16 +14,13 @@ function Signup() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch(
-        "https://square-lianne-grantroots-428bd7ba.koyeb.app/user/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${API_URL}/user/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
       if (response.ok) {
         navigate("/");
@@ -35,16 +33,16 @@ function Signup() {
   }
 
   return (
-    <>
+    <main>
       <form onSubmit={onSubmit}>
         <label htmlFor="username">Username: </label>
         <input type="text" name="username" required />
 
         <label htmlFor="password">Password: </label>
-        <input type="text" name="password" required />
+        <input type="password" name="password" required />
 
         <label htmlFor="confirmPassword">Confirm Password: </label>
-        <input type="text" name="confirmPassword" required />
+        <input type="password" name="confirmPassword" required />
 
         <label htmlFor="firstName">First Name: </label>
         <input type="text" name="firstName" required />
@@ -55,10 +53,8 @@ function Signup() {
         <button type="submit">Submit</button>
       </form>
       {error === null ? "" : <div>{error}</div>}
-      <Link to={"/"}>
-        <button>Home</button>
-      </Link>
-    </>
+      <Link to={"/"}>Home</Link>
+    </main>
   );
 }
 
