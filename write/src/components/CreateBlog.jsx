@@ -36,6 +36,7 @@ function CreateBlog() {
 
   return (
     <main>
+      <h1>Create Blog</h1>
       <form onSubmit={handleCreateBlog}>
         <label htmlFor="title">Title:</label>
         <input type="text" name="title" />

@@ -14,7 +14,8 @@ function App() {
       });
       if (!response.ok) return;
       const blogsData = await response.json();
-      setBlogs(blogsData);
+      const userBlogs = blogsData.filter((blog) => blog.authorId === userId);
+      setBlogs(userBlogs);
     } catch (error) {
       console.error(error);
     }
@@ -73,22 +74,20 @@ function App() {
       </div>
       <h1>Write</h1>
       {blogs.length < 1 ? (
-        <h2>No blogs yet create the first!</h2>
+        <h2>No blogs yet create your first!</h2>
       ) : (
-        blogs
-          .filter((blog) => blog.authorId === userId)
-          .map((blog) => (
-            <div key={blog.id} className={styles.blog}>
-              <h2>Title: {blog.title}</h2>
-              <div>Text: {blog.text}</div>
-              <div>Published: {blog.published ? "True" : "False"}</div>
-              <Link to={`/update?blogId=${blog.id}`}>Update</Link>
-              <button onClick={() => deleteBlog(blog.id)}>Delete</button>
-              <button onClick={() => handlePublish(blog.id, blog.published)}>
-                Publish
-              </button>
-            </div>
-          ))
+        blogs.map((blog) => (
+          <div key={blog.id} className={styles.blog}>
+            <h2>Title: {blog.title}</h2>
+            <div>Text: {blog.text}</div>
+            <div>Published: {blog.published ? "True" : "False"}</div>
+            <Link to={`/update?blogId=${blog.id}`}>Update</Link>
+            <button onClick={() => deleteBlog(blog.id)}>Delete</button>
+            <button onClick={() => handlePublish(blog.id, blog.published)}>
+              Publish
+            </button>
+          </div>
+        ))
       )}
     </main>
   );

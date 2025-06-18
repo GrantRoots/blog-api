@@ -37,11 +37,14 @@ function Login() {
 
   return (
     <main>
+      <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <label htmlFor="username">Username: </label>
         <input type="text" name="username" />
+
         <label htmlFor="password">Password: </label>
-        <input type="text" name="password" />
+        <input type="password" name="password" />
+
         <button type="submit">Submit</button>
       </form>
       {error === null ? "" : <div>{error}</div>}

@@ -49,6 +49,7 @@ function App() {
         <Link to={"login"}>Log In</Link>
       </div>
       <h1>Read</h1>
+      {console.log(blogs)}
       {blogs.length < 1 ? (
         <div>No blogs yet create the first!</div>
       ) : (
@@ -68,10 +69,16 @@ function App() {
                   {blog.comments.map((comment) => (
                     <div key={comment.id} className={styles.comment}>
                       <div>{comment.text}</div>
-                      <Link to={`/update?commentid=${comment.id}`}>Update</Link>
-                      <button onClick={() => handleDelete(comment.id)}>
-                        Delete
-                      </button>
+                      {comment.authorId === userId && (
+                        <>
+                          <Link to={`/update?commentid=${comment.id}`}>
+                            Update
+                          </Link>
+                          <button onClick={() => handleDelete(comment.id)}>
+                            Delete
+                          </button>
+                        </>
+                      )}
                     </div>
                   ))}
                 </div>

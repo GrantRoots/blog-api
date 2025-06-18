@@ -34,6 +34,7 @@ function Signup() {
 
   return (
     <main>
+      <h1>Sign Up</h1>
       <form onSubmit={onSubmit}>
         <label htmlFor="username">Username: </label>
         <input type="text" name="username" required />
