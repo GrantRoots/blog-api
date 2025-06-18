@@ -29,19 +29,20 @@ Backend hosted on Koyeb
 1. `git clone git@github.com:GrantRoots/blog-api.git`
 2. `cd blog-api/api`
 3. `npm install`
-4. `npm run start`
+4. `npm run build`
+5. `npm run start`
 
 - Open a new terminal window for the write frontend
 
-5. `cd blog-api/write`
-6. `npm install`
-7. `npm run dev`
+1. `cd blog-api/write`
+2. `npm install`
+3. `npm run dev`
 
 - Open a new terminal window for the read frontend
 
-8. `cd blog-api/read`
-9. `npm install`
-10. `npm run dev`
+1. `cd blog-api/read`
+2. `npm install`
+3. `npm run dev`
 
 ## Environment Variables
 
