@@ -30,7 +30,8 @@ Backend hosted on Koyeb
 2. `cd blog-api/api`
 3. `npm install`
 4. `npm run build`
-5. `npm run start`
+5. `npm run seed` (Optional)
+6. `npm run start`
 
 - Open a new terminal window for the write frontend
 
