@@ -49,7 +49,6 @@ function App() {
         <Link to={"login"}>Log In</Link>
       </div>
       <h1>Read</h1>
-      {console.log(blogs)}
       {blogs.length < 1 ? (
         <div>No blogs yet create the first!</div>
       ) : (
